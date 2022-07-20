@@ -1,0 +1,15 @@
+
+rand.py
+- The functions called upon by the randdrone.py
+
+rand.csv
+- List of commands and what to use to call those commands
+
+randdrone.py
+- Called over redis... calls upon functions in rand.py and performs operation
+- Sends result over redis to randcommander.py
+
+randcommander.py
+- Sends command to randdrone.py
+- Recieve results over redis
+- Display result in webgui

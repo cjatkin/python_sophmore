@@ -1,0 +1,30 @@
+#simple button in web gui
+
+import PySimpleGUI as sg
+import remi.gui as gui
+from remi import start, Home
+
+class MyHome (Home):
+
+    def __init__(self, *args):
+        super(MyHome, self).__init__(*args)
+
+    layout = [[sg.Button("Press me!")], [sg.Button("Don't press me!")]]
+
+    window = sg.Window("This is a window", layout, web_port = 2222, web_start_browser = False)
+
+    while True:
+        event, values = window.read()
+        '''
+        window["feedback"].Update(event)
+        print(event, values)
+        if event in (None, 'QUIT'):
+            break
+        '''
+        if event in (None, "Exit"):
+            break
+        if event == "Go":
+            window['-OUT-'].Update(values["-IN-"])
+
+
+        window.close()

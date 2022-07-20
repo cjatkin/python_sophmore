@@ -1,0 +1,12 @@
+Run the guibasic.py file...
+
+The commandBasic.py file accesses a message from the data.py file over redis
+and is able to save it as a message in the command file
+
+Then the gui imports the message from the command file, convert it from
+bytes to a string, and then display the message
+
+This trial shows the basic set up of import information from two married
+redis files...
+
+this does not feature the two being subsribed to the same channel...

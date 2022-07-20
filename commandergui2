@@ -1,0 +1,7 @@
+
+import PySimpleGUIWeb as sg
+
+layout = [[sg.Button("Connect with Redis")],
+            [sg.Text("Status: NOT CONNECTED")]]
+
+window = sg.Window("CommanderGUI", layout)

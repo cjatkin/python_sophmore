@@ -1,0 +1,58 @@
+6.6.2 SENDING FILES - REDIS LABS (HOME OF REDIS)
+
+//website: https://redislabs.com/ebook/part-2-core-concepts/chapter-6-application-components-in-redis/6-6-distributing-files-with-redis/6-6-2-sending-files/
+
+//the copy_logs_to_redis_function ...
+
+def copy_logs_to_redis(conn, path, channel, count = 10, limit=2**30, quit_when_done=True):
+
+	bytes_in_redis = 0
+	waiting = deque()
+
+	create_chat(conn, 'source', map(str, range(count)), '', channel)
+
+	//create the chat that will be used to send messages to clients
+	count = str(count)
+	for logfile in sorted(os.listdir(path)):
+	
+
+	//literate over all of the log files
+	full_path = os.path.join(path, logfile)
+	fsize = os.stat(full_path).st_size
+
+	while bytes_in_redis + fsize > limit:
+		cleaned = _clean(conn, channel, waiting, count)
+		if cleaned:
+			bytes_in_redis -= cleaned
+		else:
+			time.sleep(0.25)
+
+	//clean out finished files if we need more room
+	with open(full_path, 'rb') as inp:
+		block = ' '
+		while block:
+			block= inp.read(2**17)
+			conn.append(channel+logfile, block)
+
+	//upload the file to redis!!!(drone to subsrciption!!)
+	send_message(conn, channel, 'source', logfile)
+
+	//notify the listeners that the file is ready!! (commander)
+	bytes_in_redis += fsize
+	waiting.append((logfile, fsize))
+
+if quit_when_done:
+	send_message(conn, channel, 'source', ':drone')
+
+while waiting:
+	cleaned = _clean(conn, channel, waiting, count)
+	if cleaned:
+		bytes_in_redis -= cleaned
+	else:
+		time.sleep(0.25)
+
+//clean out finished files!! some other code... !!! 
+	
+
+
+		

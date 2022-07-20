@@ -1,0 +1,4 @@
+So the basic gui code I have is just gathering the info from redis over to the commander which makes the plot and then the web gui is 
+supposed to publish the image... but!! thats not what I want I dont think??
+
+

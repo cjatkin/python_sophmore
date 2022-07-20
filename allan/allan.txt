@@ -1,0 +1,8 @@
+working on allan variance tests!!
+
+seeing how long we can integrate white noise out of the system  until it is not helpful anymore
+
+
+
+
+
